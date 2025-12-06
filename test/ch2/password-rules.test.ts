@@ -1,4 +1,5 @@
-import { oneUpperCaseRule } from "../src/password-rules";
+import { oneUpperCaseRule } from "@/ch2/password-rules";
+import { describe, expect, test } from "vitest";
 
 describe("oneUpperCaseRule", () => {
   // it("should fail when there are no uppercase letters", () => {

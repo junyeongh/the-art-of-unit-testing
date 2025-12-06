@@ -1,4 +1,5 @@
-import { PasswordVerifier, verifyPassword } from "../src/password-verifier";
+import { PasswordVerifier } from "@/ch2/password-verifier";
+import { describe, expect, it } from "vitest";
 
 describe("PasswordVerifier", () => {
   it("returns error messages for failed rules", () => {
