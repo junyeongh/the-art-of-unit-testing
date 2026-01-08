@@ -1,0 +1,88 @@
+# 3장 의존성 분리와 스텁
+
+> [!NOTE] **1.4 종료점 유형**
+>
+> - 값 반환
+> - state mutation
+> - 의존성 (써드 파티) 호출
+
+- **3.1 의존성 유형**
+  - 의존성
+    - 외부로 나가는 의존
+      - e.g., 로깅, DB 커밋, ...
+      - => fire-and-forget
+      - 각 작업은 종료점 또는 작업 단위 내 특정 논리 흐름의 종료
+    - 내부로 들어오는 의존성
+      - 종료점을 나타내지 않는 의존성; 간접 입력/동작
+      - e.g., DB query, 파일 내용, 네트워크 => I/O
+  - 스텁과 목 (테스트 더블`test double`)
+    - 스텁(stub): 내부로 오는 의존성 대체
+      - 더미 객체
+      - 테스트 스텁
+    - 목(mock): 외부로 나가는 의존성 대체
+      - 테스트 스파이
+      - 모의 객체
+  - @ 하나의 프로그램은 일종의 계(system)
+- **3.2 스텁을 사용하는 이유**
+  - (시간을 사용한 예제)
+- **3.3 스텁을 사용하는 일반적인 설계 방식**
+  - *3.3.1 스텁으로 만든 시간을 매개변수로 주입*
+    - (리팩토링)
+    - 의존성 역전
+    - 의존성 주입 => 스텁
+  - *3.3.2 의존성, 주입, 제어*
+    - 의존성
+    - 제어
+    - 제어의 역전 `Inversion of Control`
+      - Factory Pattern
+      - Template Method Pattern
+      - Service Locator Pattern
+      - Dependency Injection (DI)
+    - 의존성 주입
+      - [Dependency Injection, The Best Pattern - YouTube](https://www.youtube.com/watch?v=J1f5b4vcxCQ&t=1s)
+      - 의존성 주입의 다양한 방식
+        - 생성자 주입(Constructor Injection)
+        - 세터 주입(Setter Injection)
+        - 인터페이스 주입(Interface Injection)
+    - 심 seam
+      - @ 파이프라인의 input/output; functional approach
+- **3.4 함수를 이용한 주입 방법**
+  - @ 바로 함수형 얘기가 나오네
+    - 객체지향 vs 함수형 =(이런 토론 대신)=> 멀티 페러다임을 어떻게 잘 활용할 수 있을까
+    - [OOP의 잊혀진 역사 - RosettaLens 번역](https://rosettalens.com/s/ko/the-forgotten-history-of-oop)
+    - '필자는 패턴 자체는 크게 다르지 않으며, 단지 같은 문제를 다른 스타일로 번역할 뿐이라고 생각한다.'
+  - *3.4.1 함수 주입*
+    - 함수가 일급 객체인 경우 함수를 매개변수로 전달
+  - *3.4.2 부분 적용을 이용한 의존성 주입*
+    - 팩토리 함수 ~ 고차 함수
+- **3.5 모듈을 이용한 주입 방법**
+  - 제어불가능한 서드 파티 의존성 대신 제어 가능한 중간 추상화 단계 사용
+    - 포트`Port`
+    - 어댑터`Adapter architecture`
+      - [Hexagonal Architecture, 진짜 하실 건가요? | 카카오페이 기술 블로그](https://tech.kakaopay.com/post/home-hexagonal-architecture/)
+  - 모듈 의존성 주입 대신 다른 의존성 주입
+    - 매개변수 활용 / 커링
+    - constructor & interface 사용
+  - 포트 => 어댑터: 포트를 통해 들어오는 요청을 처리하는 구체적 구현체
+    - 어댑터는 일종의 메세지를 전달한는 객체?
+- **3.6 생성자 함수를 사용하여 객체 지향적으로 전환**
+- **3.7 객체 지향적으로 의존성을 주입하는 방법**
+  - *3.7.1 생성자 주입*
+  - *3.7.2 함수 대신 객체 주입*
+  - *3.7.3 공통 인터페이스 추출*
+  - @
+    - 추상화된 개념으로 접근했을 때, 제어의 역전을 사용하는 패턴과 control flow (제어 흐름)의 방향
+      - [Continuation - Wikipedia](https://en.wikipedia.org/wiki/Continuation)
+      - 큰 그림에선 비슷함; 내부가 아닌 외부에서의 continuation 사용
+    - 이 챕터는 함수형 스타일 => 객체 지향 스타일 리팩토링
+      - 다만, 순수한 함수형 스타일 =!= 강타입의 객체 지향 스타일
+- **3.8 요약**
+  - @ 다시 챕터의 시작으로 돌아가서
+    - 하나의 프로그램은 일종의 계(system)
+      - 시스템 내부의
+        - 모듈과
+        - 모듈 사이의 관계
+      - 우리는 뭘 테스트하는가?
+        - 모듈 사이의 연결은 원활한지
+        - 어떤 모듈에 어떤 입력이 들어갔을 때, 기대한 값이 나오는지?
+      - 이 챕터에서 다룬 스텁의 역할과 시스템의 비유
