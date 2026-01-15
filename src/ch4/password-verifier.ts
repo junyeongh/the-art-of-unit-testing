@@ -39,12 +39,12 @@ inputs: (passwordInput, rules) |> verifyPassword
 
 // Interfaces
 export interface ComplicatedLogger {
-  info(text: string);
-  debug(text: string, obj: any);
-  warn(text: string);
-  error(text: string, location: string, stacktrace: string);
+  info(text: string): string;
+  debug(text: string, obj: any): string;
+  warn(text: string): string;
+  error(text: string, location: string, stacktrace: string): string;
 }
 
 export interface Logger {
-  info(text: string);
+  info(text: string): string;
 }
